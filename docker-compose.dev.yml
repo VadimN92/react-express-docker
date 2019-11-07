@@ -1,0 +1,27 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    image: reactexpressdocker_client-image-dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client/src:/client/src
+    container_name: react-express-client-container-dev
+    depends_on:
+      - server
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    image: reactexpressdocker_server-image-dev
+    ports:
+      - 5000:5000
+    volumes:
+      - ./server/src:/server/src
+    container_name: react-express-server-container-dev
